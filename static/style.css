@@ -1,0 +1,111 @@
+body {
+  min-height: 2000px;
+  padding-top: 70px;
+  line-height: 1.5;
+}
+
+
+
+blockquote { 
+    display: block;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    margin-left: 40px;
+    margin-right: 40px;
+    background: #ddd;
+    border-radius: 17px;
+    border-left: 0px;
+    font: caption;
+}
+
+#target {
+    display: table;
+    margin: 0 auto;
+    width: 100%;
+}
+
+#tag_cloud a {
+  padding-right: 6px;
+  text-decoration: none;
+  display: inline-block;
+}
+
+#tag_cloud a:hover {
+  text-decoration: underline;
+}
+
+#tag_cloud {
+  text-align: center;
+  font: 75% Arial, "MS Trebuchet", sans-serif;
+}
+
+
+#results{
+  text-align: left;
+}
+
+#sb_button{
+  padding-top: 10px;
+}
+
+#main{
+   max-width: 100%; 
+}
+
+#documents{
+  text-align: left;
+}
+
+.jumbotron {
+  text-align: center;
+  width: 90%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-radius: 17px;
+}
+
+.form-main {
+  max-width: 100%;
+  padding: 0px;
+  margin: 0 auto;
+}
+.form-main .form-main-heading,
+.form-main {
+  margin-bottom: 10px;
+}
+.form-main {
+  font-weight: normal;
+}
+.form-main {
+  position: relative;
+  height: auto;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  font-size: 16px;
+}
+
+#error{
+	color: red;
+}
+
+a:link    {
+  /* Applies to all unvisited links */
+  text-decoration:  none;
+  color:            #333;
+  } 
+a:visited {
+  /* Applies to all visited links */
+  text-decoration:  none;
+  color:            #333;
+  } 
+a:hover   {
+  /* Applies to links under the pointer */
+  text-decoration:  none;
+  color:            #333;
+  } 
+a:active  {
+  /* Applies to activated links */
+  text-decoration:  none;
+  color:            #333;
+  } 
