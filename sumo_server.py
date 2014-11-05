@@ -1,15 +1,38 @@
+"""
+The MIT License
+
+Copyright (c) 2014 Giovanni Damiola & Contributors
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+"""
+
 from flask import Flask, jsonify, render_template, url_for
 from flask.ext.restful import reqparse, abort, Api, Resource
+from flask_bootstrap import Bootstrap
 
-from bson import json_util
+import re
 import json
+from bson import json_util
 
 from tools import connector
 from tools import scraper
 from tools import clusterizer
-
-
-from flask_bootstrap import Bootstrap
 
 
 
@@ -37,7 +60,19 @@ def it_exists(url):
 		return 3
 
 
-
+## check if the string is a valid url
+def it_is_url(url):
+	regex = re.compile(
+        r'^https?://' # http:// or https://
+        r'(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+(?:[A-Z]{2,6}\.?|[A-Z0-9-]{2,}\.?)|' #domain...
+        r'localhost|' #localhost...
+        r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})' # ...or ip
+        r'(?::\d+)?' # optional port
+        r'(?:/?|[/?]\S+)$', re.IGNORECASE)
+	if re.match(regex,url):
+		return True
+	else:
+		return False
 
 ##### Main page
 #####
@@ -62,14 +97,16 @@ class Sumo(Resource):
     def post(self):
 		args = parser.parse_args()
 		url = args['url']
-		if it_exists(url) == 1:
-			abort(409, message = "CONFLICT The document {} already exists".format(url))
+		if it_is_url(url):
+			if it_exists(url) == 1:
+				abort(409, message = "CONFLICT The document {} already exists".format(url))
+			else:
+				page_title, text, img = scraper.extract(url)
+				result = scraper.get_scraped_data(page_title,text,img,url)
+				connector.mongo_insert(result)
+				return {"CREATED":url},201
 		else:
-			page_title, text, img = scraper.extract(url)
-			result = scraper.get_scraped_data(page_title,text,img,args['url'])
-			connector.mongo_insert(result)
-			return {"CREATED":url},201
-
+			return {"MALFORMED URL":url},415
 
 
 ## resource for retrieve the documents

@@ -166,38 +166,43 @@ $(document).ready(function(){
 
     // Control Button Analysis
     $("#button_anl").click(function(){
-        $(this).hide();
-        $('#results').empty();
-        $('#cluster').empty(); 
-        $("#button_cluster").show();
-        $("#loading").show();
         var target = $("#target").val();
-        var norm_target = target.replace(/http:\/\//,"");
-        norm_target = norm_target.replace(/https:\/\//g,"");
-        norm_target = norm_target.replace(/\//g,"__");
-        var resource = "/sumo/"+norm_target
-        $.ajax({
-            'async': false,
-            'global': false,
-            'url': resource,
-            'type': "get",
-            'dataType': "json",
-            statusCode: {
-                200: function (data){
-                    show_results(data)
-                    $("#clusterize").show();
-                },
-                404: function (){
-                    target_document = target;
-                    $("#results").hide();
-                    $("#results").empty();
-                    $("#tag_cloud").hide();
-                    $("#tag_cloud").empty();
-                    $("#add_form").slideDown();
-                    $("#loading").hide();
+        if (is_valid_url(target)){
+            $(this).hide();
+            $('#results').empty();
+            $('#cluster').empty(); 
+            $("#button_cluster").show();
+            $("#loading").show();
+            var norm_target = target.replace(/http:\/\//,"");
+            norm_target = norm_target.replace(/https:\/\//g,"");
+            norm_target = norm_target.replace(/\//g,"__");
+            var resource = "/sumo/"+norm_target
+            $.ajax({
+                'async': false,
+                'global': false,
+                'url': resource,
+                'type': "get",
+                'dataType': "json",
+                statusCode: {
+                    200: function (data){
+                        show_results(data)
+                        $("#clusterize").show();
+                    },
+                    404: function (){
+                        target_document = target;
+                        $("#results").hide();
+                        $("#results").empty();
+                        $("#tag_cloud").hide();
+                        $("#tag_cloud").empty();
+                        $("#add_form").slideDown();
+                        $("#loading").hide();
+                    }
                 }
-            }
-        });
+            });
+        }
+        else{
+            $("#target").val("please insert a valid url");
+        }
     });
 
 
@@ -247,6 +252,12 @@ $(document).ready(function(){
 
 });
 
+// function to valudate the url in the input
+function is_valid_url(url){
+    var exp = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w\.-]*)*\/?/
+    var urlregex = new RegExp(exp);
+    return urlregex.test(url)
+};
 
 // funtion to load the documents index in the div
 function load_index(){
