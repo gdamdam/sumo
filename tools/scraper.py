@@ -1,7 +1,6 @@
 import StringIO
 import gzip
 import urllib2
-import jpype
 import re
 
 from goose import Goose
