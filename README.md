@@ -1,4 +1,5 @@
-# Sumo - a tool for semantic analysis of web articles.
+# Sumo 
+a tool for semantic analysis of web articles.
 
 
 ## Basic Installation
