@@ -8,9 +8,11 @@ from nltk.stem.porter import *
 from tools import tokenizer 
 
 
-######
-###### code forked from
-###### https://gist.github.com/shlomibabluki/5473521
+#
+# code forked from
+# https://gist.github.com/shlomibabluki/5473521
+# Created by Shlomi Babluki
+# April, 2013
 
 class Summary():
 

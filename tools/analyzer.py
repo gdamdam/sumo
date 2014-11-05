@@ -13,12 +13,12 @@ from nltk.stem.snowball import SnowballStemmer
 from nltk.stem.wordnet import WordNetLemmatizer
 
 from tools import tokenizer 
+from tools import sum_luhn
+from tools import summary 
 
 N_MOST_FREQ_WORDS = 20			#number of returned most freq words
 
 N = 170 # number of words to consider
-CLUSTER_THRESHOLD = 5 #distance between words to consider
-TOP_SENTENCES = 5 # number of sentences to return for a "top n" summary
 
 class Analyzer():
 	"""Class to analyzer the text
@@ -104,8 +104,11 @@ class Analyzer():
 
 		## extracting the two Luhn summaries
 		##
-		self.summary_top_n, self.summary_mean_scored = self.summarize(sentences)		
+		self.summary_top_n, self.summary_mean_scored = sum_luhn.summarize(sentences,self.STOP_WORDS)		
 
+		## extractin intersection summery
+		##
+		self.abs_summary = summary.Summary(txt)
 		return 1
 
 
@@ -220,107 +223,8 @@ class Analyzer():
 
 
 
-#### REVIEW THIS CODE
-#### Add the source reference and credits
-		#The functions returns two summary using Luhn Algorithms
-
-		#Args:
-		#  sentences: the sentences list.
-
-		#Returns:
-		#  top_n_summary: dictionary with the sentences part of the summary
-		#  mean_scored_summary: dictionary with the sentences part of the summary 
 		
-	def summarize(self,sentences):
 
-	    normalized_sentences = [s.lower() for s in sentences]
-
-	    words = [w.lower() for sentence in normalized_sentences for w in nltk.tokenize.word_tokenize(sentence)]
-	    words = [word for word in words if word not in self.STOP_WORDS]
-
-	    fdist = nltk.FreqDist(words)
-
-	    words_dist = dict(fdist.items())
-	    keys_most_freq_words = sorted(words_dist, key=words_dist.__getitem__, reverse=True)
-
-	    top_n_words = []
-	    for k in keys_most_freq_words:
-	    	top_n_words.append(k)		
-
-
-	    scored_sentences = self._score_sentences(normalized_sentences, top_n_words[:100])
-
-
-	    ### Summarization with Luhn Algorithm 
-
-	    # Approach 1:
-	    # Filter out nonsignificant sentences by using the average score plus a
-	    # fraction of the std dev as a filter
-	    avg = numpy.mean([s[1] for s in scored_sentences])
-	    std = numpy.std([s[1] for s in scored_sentences])
-	    mean_scored = [(sent_idx, score) for (sent_idx, score) in scored_sentences if score>avg+0.5*std]
-
-
-        # Summarization Approach 2:
-        # Another approach would be to return only the top N ranked sentences
-	    top_n_scored = sorted(scored_sentences, key=lambda s: s[1])[-TOP_SENTENCES:] 
-	    top_n_scored = sorted(top_n_scored, key=lambda s: s[0])
-
-	        # Decorate the post object with summaries
-	    res = dict(top_n_summary=[sentences[idx] for (idx, score) in top_n_scored], mean_scored_summary=[sentences[idx] for (idx, score) in mean_scored])
-
-	    return res['top_n_summary'],res['mean_scored_summary']
-
-
-
-
-	def _score_sentences(self, sentences, important_words):
-	    scores = []
-	    sentence_idx = -1
-
-	    for s in [nltk.tokenize.word_tokenize(s) for s in sentences]:
-	        sentence_idx += 1
-	        word_idx = []
-
-	        # for each word in the word list
-	        for w in important_words:
-	            try:
-	                # compute index for where any important words occur in the sentence
-	                word_idx.append(s.index(w))
-	            except ValueError, e:
-	                pass
-
-	        word_idx.sort()
-	        # some sentences may have not contain any important words at all.
-	        if len(word_idx) == 0: continue
-
-	        # using the word index, compute clusters by using a max distance threshold for any two consecutive words.
-	        clusters = []
-	        cluster = [word_idx[0]]
-	        i = 1
-	        while i < len(word_idx):
-	            if word_idx[i]- word_idx[i-1] < CLUSTER_THRESHOLD:
-	                cluster.append(word_idx[i])
-	            else:
-	                clusters.append(cluster[:])
-	                cluster = [word_idx[i]]
-	            i += 1
-	        clusters.append(cluster)
-
-	        #score each cluster. the max score for any given clustr is the score for the sentence.
-	        max_cluster_score = 0
-	        for c in clusters:
-	            significant_words_in_cluster = len(c)
-	            total_words_in_cluster = c[-1]-c[0]+1
-	            score = 1.0 * significant_words_in_cluster \
-	                    * significant_words_in_cluster/total_words_in_cluster
-
-	            if score > max_cluster_score:
-	                max_cluster_score = score
-
-	        scores.append((sentence_idx, score))
-
-	    return scores
 
 if __name__ == "__main__":
         main()	
