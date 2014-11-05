@@ -2,6 +2,12 @@
 a tool for semantic analysis of web articles.
 
 
+## Main requirements
+
+MongoDB >=2.6.5 
+Python >=2.7.5
+
+
 ## Basic Installation
 
 <pre>
