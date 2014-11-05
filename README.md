@@ -3,10 +3,10 @@ a tool for semantic analysis of web articles.
 
 
 ## Main requirements
-
+<pre>
 MongoDB >=2.6.5 
 Python >=2.7.5
-
+</pre>
 
 ## Basic Installation
 
