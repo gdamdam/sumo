@@ -326,13 +326,13 @@ function show_results(data){
     $('#results').append("<b>"+data.page_title+"</b><br><br>");
     $('#results').append("<img width='250' src='"+data.img+"'><br>");
     $('#results').append("<b>URL:</b> "+data.url+"<br>");
-    $('#results').append("<b>Smart_url:</b> <a href='/sumo/"+data.url_name+"' target='_blank'>"+data.url_name+"</a><br>");
+    $('#results').append("<b>id_url:</b> <a href='/sumo/"+data.url_name+"' target='_blank'>"+data.url_name+"</a><br>");
     $('#results').append("<b>Insert date:</b> "+data.date_insert+"<br>");
     $('#results').append("<br><b>Language detected:</b> "+data.lang+"<br>");
-    $('#results').append("<br><b>Num Sentences:</b> "+data.sentences+"<br>");
-    $('#results').append("<b>Num Words:</b> "+data.words+"<br>");
-    $('#results').append("<b>Num Unique Words:</b> "+data.unique_words+"<br>");
-    $('#results').append("<b>Num Hapaxes:</b> "+data.hapaxes+"<br>");
+    $('#results').append("<br><b>Sentences:</b> "+data.sentences+" ");
+    $('#results').append("<b>Words:</b> "+data.words+" ");
+    $('#results').append("<b>Unique Words:</b> "+data.unique_words+" ");
+    $('#results').append("<b>Hapaxes:</b> "+data.hapaxes+"<br>");
 
     
     // appending the most frequent words
