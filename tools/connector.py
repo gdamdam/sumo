@@ -1,44 +1,45 @@
-## This module contains the function to interact with the mongodb
-
+## This module contains the function to interact with the mongodbimport sys
 import datetime
-from pymongo import MongoClient
+from pymongo import Connection
+from pymongo.errors import ConnectionFailure
 
 
 
 def _mongo_connect():
-	""" Internal function to connect to the mongodb
-	"""
-	# making connection with mongodb
-	client = MongoClient('localhost', 27017)
+	""" Internal function to connect to the mongodb	"""
+	# making connection with mongodb	
+	try:
+		con = Connection(host='localhost', port=27017)
+	except ConnectionFailure, e:
+		sys.stderr.write("Could not connect to mongodb: %s" % e)
+		sys.exit(1)
+	# getting the database hande
+	dbh = con['sumo']
 
-	# getting the sumo database
-	db = client.sumo
+	assert dbh.connection == con
 
-	return db
-
+	return dbh
 
 
-## this function insert an article object into the mongodb
-##
+## this function insert an article object into the mongodb##
 def mongo_insert(article_obj):
-	""" The function inserts an article object in the mongo db
-
-	Args:
+	""" The function inserts an article object in the mongo dbh	Args:
 	article_obj: aticle object
 
 	Returns: True
 	"""	
 
 	# connect to mongo
-	db = _mongo_connect()
+	dbh = _mongo_connect()
 
 	# getting the articles collection
-	articles = db.articles
+	articles = dbh.articles
 
 	# inserting article 
 	article_obj['date_insert'] = str(datetime.datetime.now())
 	articles.insert(article_obj)
 
+	dbh.connection.close()
 	return 1
 
 def mongo_remove(query):
@@ -50,13 +51,14 @@ def mongo_remove(query):
 	Returns: True
 	"""
 	# connect to mongo
-	db = _mongo_connect()
+	dbh = _mongo_connect()
 
 	# getting the articles collection
-	articles = db.articles
+	articles = dbh.articles
 
 	# inserting article 
 	articles.remove({'url_name':query})
+	dbh.connection.close()
 
 	return 1
 
@@ -71,16 +73,17 @@ def mongo_find(query):
 		doc: the document found
 	"""
 	# connect to mongo
-	db = _mongo_connect()
+	dbh = _mongo_connect()
 
 	# getting the articles collection
-	articles = db.articles	
+	articles = dbh.articles	
 
 	document = articles.find_one({'url_name':query})
 
 	## removing the mongodb bson _id 
 	doc = document
 	del doc['_id']
+	dbh.connection.close()
 
 	return doc
 
@@ -95,9 +98,9 @@ def mongo_find(query):
 #	Returns: True
 #	"""
 #
-#	db = _mongo_connect()
+#	dbh = _mongo_connect()
 #
-#	articles = db.articles
+#	articles = dbh.articles
 #
 #	articles.update({'url_name':query},{"$set":{'analysis':analysis_results}})
 #
@@ -108,19 +111,17 @@ def mongo_find(query):
 
 
 def mongo_all(result_num):
-	""" The function return rest_nums documents for the db
-
-	Args:
+	""" The function return rest_nums documents for the dbh	Args:
 		resuts_num: the number of results to show
 
 	Returns: 
 		resuts: the results set
 	"""	
 	# connect to mongo
-	db = _mongo_connect()
+	dbh = _mongo_connect()
 
 	# getting the articles colletions
-	articles = db.articles
+	articles = dbh.articles
 
 	# find the document
 	documents = articles.find().limit(result_num)
@@ -132,6 +133,7 @@ def mongo_all(result_num):
 		i += 1
 		results[i] = document['url_name']
 
+	dbh.connection.close()
 	return results
 
 
