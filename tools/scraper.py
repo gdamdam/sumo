@@ -44,7 +44,11 @@ def extract(URL):
 	"""
 
 	g = Goose()
-	article = g.extract(url=URL)
+
+	text_html = _get_html_content_from_url(URL)
+
+	#article = g.extract(url=URL)
+	article = g.extract(raw_html=text_html)
 
 	img = ''
 
