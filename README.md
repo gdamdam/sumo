@@ -79,7 +79,7 @@ HTTP Status returned:
 	404:	Not Found 	- the document does not exist
 </pre>
 
-It is possible <b>retrieve the cluster</b> of similar documents using the cluster resource
+It is possible <b>retrieve the cluster of similar documents</b> using the cluster resource
 <pre>
 curl http://host:500/sumo/cluster/ID_DOC
 </pre>
