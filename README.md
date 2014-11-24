@@ -53,7 +53,7 @@ are substitued with <i>\_\_</i> (double underscore).
 e.g.: 
 <pre>
  TARGET_URL: www.google.com/test
- ID_DOC: www.google.com__test
+     ID_DOC: www.google.com__test
 </pre>
 
 <b>To analyze and store a document</b> and store it on the db:
