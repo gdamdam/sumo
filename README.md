@@ -1,4 +1,4 @@
-# Sumo 0.1
+# Sumo 0.1 alpha
 API for semantic analysis of web articles.
 
 
@@ -7,7 +7,14 @@ API for semantic analysis of web articles.
 MongoDB >=2.6.5 
 Python >=2.7.5
 </pre>
-To install MongoDB on Debian see the document <a href="http://docs.mongodb.org/manual/tutorial/install-mongodb-on-debian/" target="_blank">http://docs.mongodb.org/manual/tutorial/install-mongodb-on-debian/</a>
+and you will need also:
+<pre>
+libxml2-dev
+libxslt-dev
+</pre>
+
+To install MongoDB on Debian see the document 
+<a href="http://docs.mongodb.org/manual/tutorial/install-mongodb-on-debian/" target="_blank">http://docs.mongodb.org/manual/tutorial/install-mongodb-on-debian/</a>
 
 ## Basic Installation
 
