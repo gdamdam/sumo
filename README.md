@@ -95,7 +95,7 @@ HTTP Status returned:
 The running server provides also a very minimal javascript web interface to interact with the API.
 The interface is reacheable at:
 <pre>
-http://host:port
+http://host:5000
 </pre>
 
 Tips:
