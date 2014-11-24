@@ -1,5 +1,5 @@
 # Sumo 
-An API for semantic analysis of web articles.
+API for semantic analysis of web articles.
 
 
 ## Main requirements
