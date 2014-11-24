@@ -16,7 +16,7 @@ from tools import tokenizer
 from tools import sum_luhn
 from tools import summary 
 
-N_MOST_FREQ_WORDS = 20			#number of returned most freq words
+N_MOST_FREQ_WORDS = 20	#number of returned most freq words
 
 N = 170 # number of words to consider
 
@@ -74,7 +74,6 @@ class Analyzer():
 		words = tokenizer.get_words(sentences)
 
 		# extract most freq words
-		# THIS IS THE STEP USING THE COMPLETE WORD LIST
 		self.most_freq_words = self.get_most_freq_words(words,type='original')
 
 
@@ -94,23 +93,18 @@ class Analyzer():
 			if w not in self.STOP_WORDS:
 				stemmed_words_wordnet.append(lmtz.lemmatize(w))
 
-		# extract most freq stemmed words using WordNet Lemmatizer
 		self.most_freq_stem_words_wn = self.get_most_freq_words(stemmed_words_wordnet,type='stemmed')
 
 
 
-		## extracting and savint the Entities
+		# extracting and savint the Entities
 		self.entities = self.get_entities(sentences)
 
-		## extracting the two Luhn summaries
-		##
+		# extracting the two Luhn summaries
 		self.summary_top_n, self.summary_mean_scored = sum_luhn.summarize(sentences,self.STOP_WORDS)		
-		#self.summary_top_n, self.summary_mean_scored = '1','1'
 
-		## extractin intersection summery
-		##
+		# extractin intersection summery
 		self.abs_summary = summary.Summary(txt)
-		#self.abs_summary = '1'
 		return 1
 
 
