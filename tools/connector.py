@@ -23,8 +23,10 @@ def _mongo_connect():
 
 ## this function insert an article object into the mongodb##
 def mongo_insert(article_obj):
-	""" The function inserts an article object in the mongo dbh	Args:
-	article_obj: aticle object
+	""" The function inserts an article object in the mongo dbh	
+        
+        Args:
+	    article_obj: aticle object
 
 	Returns: True
 	"""	
@@ -46,7 +48,7 @@ def mongo_remove(query):
 	""" The function delete a document form the mongodg
 
 	Args:
-		query: the article url_name to remove
+	    query: the article url_name to remove
 
 	Returns: True
 	"""

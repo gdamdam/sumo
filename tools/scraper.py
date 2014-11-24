@@ -96,13 +96,13 @@ def get_scraped_data(page_title,text,img,URL):
 	"""Function to scrap the data from a text.
 
 	Args:
-      page_title: a string with the page title value.
-      text: the text to be scraped.
-      URL: the URL string value
+            page_title: a string with the page title value.
+            text: the text to be scraped.
+            URL: the URL string value
 
-    Returns:
-      the dictionary with all the data scraped form the text.
-      check the code for the complete keys list.
+        Returns:
+            the dictionary with all the data scraped form the text.
+            check the code for the complete keys list.
 	"""
 
 	# analyzing the text
