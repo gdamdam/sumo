@@ -7,7 +7,7 @@ API for semantic analysis of web articles.
 MongoDB >=2.6.5 
 Python >=2.7.5
 </pre>
-to build some python requirements probably you will need also:
+to build some python requirements you will need also:
 <pre>
 libxml2-dev
 libxslt-dev
