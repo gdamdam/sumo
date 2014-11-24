@@ -77,8 +77,7 @@ def it_is_url(url):
 	else:
 		return True
 
-##### Main page
-#####
+# static files
 @app.route('/')
 def index():
 	url_for('static', filename='style.css')
@@ -89,10 +88,10 @@ def index():
 
 ##### Sumo REST API initialization
 
-##	show a list of documents and lets you POST to add new documents
+## show a list of documents and lets you POST to add new documents
 class Sumo(Resource):
 
-	# GET : retrieve the documents index from mongodb 
+    # GET : retrieve the documents index from mongodb 
     def get(self):
         return connector.mongo_all(1000), 200
 
@@ -116,7 +115,7 @@ class Sumo(Resource):
 ##
 class SumoDocument(Resource):
 
-	# GET : retrieve the results for the document requested
+	# GET : retrieve the results for the requested document
 	def get(self,url_norm):
 		if it_exists(url_norm) == 1:
 			result = connector.mongo_find(url_norm)
@@ -125,7 +124,7 @@ class SumoDocument(Resource):
 			abort(404, message = "NOT FOUND: The document {} doesn't exists".format(url_norm))
 		return url
 
-	# DELETE : remove the document requested from mongodb
+	# DELETE : remove the requested document from mongodb
 	def delete(self,url_norm):
 		if it_exists(url_norm) == 1:
 			result = connector.mongo_remove(url_norm)
@@ -138,7 +137,7 @@ class SumoDocument(Resource):
 # resource to retrieve the document cluster
 class SumoCluster(Resource):
 
-	# GET : retrieve the cluster for the document requested
+	# GET : retrieve the cluster for the requested document 
 	def get(self,url_norm):
 		if it_exists(url_norm) == 1:
 			cluster = clusterizer.get_cluster(url_norm)
@@ -157,7 +156,7 @@ api.add_resource(Sumo, '/sumo')
 api.add_resource(SumoDocument, '/sumo/<string:url_norm>')
 api.add_resource(SumoCluster, '/sumo/cluster/<string:url_norm>')
 
-
+# main
 def main(argv):
 	server_port = 5000
 	server_host = "0.0.0.0"
@@ -183,6 +182,7 @@ def main(argv):
 	app.run(debug=True, host=server_host, port=server_port)
 
 
+# to print the usage help string
 def usage():
 	print "\nUsage: "+__file__+" -s <IP> [OPTION]"
 	print "A tool for semantic analysis of web articles\n"
@@ -191,6 +191,8 @@ def usage():
 	print "-s, --server     IP where the server is listening"
 	print "-p, --port       port where the server is listening, default 5000"
 	print "\n\n"
+
+
 
 if __name__ == '__main__':
 	main(sys.argv[1:])
