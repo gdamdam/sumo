@@ -99,5 +99,5 @@ http://host:5000
 </pre>
 
 Tips:
-- single click on an id in the index to fill the form and click analyze to retrieve the analysis.
-- double click on an id in the index to delete it.
+- single click on an ID_DOC in the index to fill the form and click analyze to retrieve the analysis.
+- double click on an ID_DOC in the index to delete it.
