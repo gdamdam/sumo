@@ -21,6 +21,7 @@ python requirements_nltk.py
 
 Just lunch the server
 
+e.g.: 
 <pre>
 python ./sumo_server.py -s <IP>
 </pre>
