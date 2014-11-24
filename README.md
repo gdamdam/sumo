@@ -22,7 +22,7 @@ python requirements_nltk.py
 Just lunch the server
 
 <pre>
-python ./sumo_server.py -s <IP>
+python ./sumo_server.py -s IP
 </pre>
 
 for help and all the options you can use
@@ -39,7 +39,7 @@ The following comand returns the <b>list of all the documents stored</b>
 curl http://host:5000/sumo
 </pre>
 
-The stored documents are labeled with a \<ID_DOC\>, where the <i>/</i> caracter in the URL
+The stored documents are labeled with a ID_DOC, where the <i>/</i> caracter in the URL
 are substitued with <i>\_\_</i> (double underscore).
 
 e.g.: 
@@ -50,18 +50,18 @@ e.g.:
 
 <b>To analyze and store a document</b> and store it on the db:
 <pre>
-curl http://host:5000/sumo -X POST -d 'url=\<TARGET_URL\>'
+curl http://host:5000/sumo -X POST -d 'url=TARGET_URL'
 </pre>
 HTTP Status returned:
 <pre>
-	201:	Created		- the document at \<TARGET_URL\> sucessfully analyzed and stored
-	409:	Conflict	- if the \<TARGET_URL\> already exists in the storade
-	415:	Unsupported	- the \<TARGET_URL\> is malformed
+	201:	Created		- the document at TARGET_URL sucessfully analyzed and stored
+	409:	Conflict	- if the TARGET_URL already exists in the storade
+	415:	Unsupported	- the TARGET_URL is malformed
 </pre>
 
 <b>To retrieve a stored document</b> analysis:
 <pre>
-curl http://host:500/sumo/\<ID_DOC\>
+curl http://host:500/sumo/ID_DOC
 </pre>
 HTTP Status returned:
 <pre>
@@ -71,7 +71,7 @@ HTTP Status returned:
 
 <b>To delete a stored document</b>:
 <pre>
-curl http://host:500/sumo/\<ID_DOC\> -X DELETE
+curl http://host:500/sumo/ID_DOC -X DELETE
 </pre>
 HTTP Status returned:
 <pre>
@@ -81,7 +81,7 @@ HTTP Status returned:
 
 It is possible <b>retrieve the cluster</b> of similar documents using the cluster resource
 <pre>
-curl http://host:500/sumo/cluster/\<ID_DOC\>
+curl http://host:500/sumo/cluster/ID_DOC
 </pre>
 HTTP Status returned:
 <pre>
