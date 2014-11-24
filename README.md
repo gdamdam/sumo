@@ -39,8 +39,8 @@ The following comand returns the <b>list of all the documents stored</b>
 curl http://host:5000/sumo
 </pre>
 
-The stored documents are labeled with a <ID_DOC>, where the \/ caracter in the URL
-are substitued with \_\_
+The stored documents are labeled with a \<ID_DOC\>, where the <i>/</i> caracter in the URL
+are substitued with <i>\_\_</i> (double underscore).
 <pre>
 	URL: www.google.com/test
  ID_DOC: www.google.com__test
