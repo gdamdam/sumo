@@ -64,7 +64,7 @@ curl http://host:500/sumo/<ID_DOC>
 HTTP Status returned:
 <pre>
 	200:	OK			
-	404:	Not Found 	- the document does not exists
+	404:	Not Found 	- the document does not exist
 </pre>
 
 <b>To delete a stored document</b>:
@@ -74,7 +74,7 @@ curl http://host:500/sumo/<ID_DOC> -X DELETE
 HTTP Status returned:
 <pre>
 	204:	No Content	- document deleted 
-	404:	Not Found 	- the document does not exists
+	404:	Not Found 	- the document does not exist
 </pre>
 
 It is possible <b>retrieve the cluster</b> of similar documents using the cluster resource
@@ -84,13 +84,13 @@ curl http://host:500/sumo/cluster/<ID_DOC>
 HTTP Status returned:
 <pre>
 	200:	OK
-	404:	Not Found 	- the document does not exists
+	404:	Not Found 	- the document does not exist
 </pre>
 
 
 ## Web Interface
 
-The running server provice also a minimal javascript web interface to interact with the API.
+The running server provides also a very minimal javascript web interface to interact with the API.
 The interface is reacheable at:
 <pre>
 http://host:port
