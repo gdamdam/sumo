@@ -21,7 +21,6 @@ python requirements_nltk.py
 
 Just lunch the server
 
-e.g.: 
 <pre>
 python ./sumo_server.py -s <IP>
 </pre>
@@ -42,6 +41,8 @@ curl http://host:5000/sumo
 
 The stored documents are labeled with a \<ID_DOC\>, where the <i>/</i> caracter in the URL
 are substitued with <i>\_\_</i> (double underscore).
+
+e.g.: 
 <pre>
 	URL: www.google.com/test
  ID_DOC: www.google.com__test
