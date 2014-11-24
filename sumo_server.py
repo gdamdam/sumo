@@ -1,32 +1,12 @@
-"""
-The MIT License
 
-Copyright (c) 2014 Giovanni Damiola & Contributors
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
-"""
 
 from flask import Flask, jsonify, render_template, url_for
 from flask.ext.restful import reqparse, abort, Api, Resource
 from flask_bootstrap import Bootstrap
 
 import re
+import sys
+import getopt
 import json
 from bson import json_util
 
@@ -34,7 +14,7 @@ from tools import connector
 from tools import scraper
 from tools import clusterizer
 
-
+VERSION = "0.1"
 
 app = Flask(__name__)
 Bootstrap(app)
@@ -72,7 +52,7 @@ def it_is_url(url):
 	if re.match(regex,url):
 		return True
 	else:
-		return False
+		return True
 
 ##### Main page
 #####
@@ -155,7 +135,39 @@ api.add_resource(SumoDocument, '/sumo/<string:url_norm>')
 api.add_resource(SumoCluster, '/sumo/cluster/<string:url_norm>')
 
 
+def main(argv):
+	server_port = 5000
+	server_host = "0.0.0.0"
+	try:
+		opts, args = getopt.getopt(argv,"hvs:p:",["help","version","server","port"])
+		if not opts:
+			usage()
+			sys.exit(2)
+	except getopt.GetoptError as e:
+			usage()
+			sys.exit(2)
+	for opt, arg in opts:
+		if opt in ('-h','--help'):
+			usage()
+			sys.exit()
+		elif opt in ('-v','--version'):
+			print __file__+" "+VERSION
+			sys.exit()
+		elif opt in ('-s','--server'):
+			server_host = str(arg)
+		elif opt in ('-p','--port'):
+			server_port = int(arg)
+	app.run(debug=True, host=server_host, port=server_port)
 
+
+def usage():
+	print "\nUsage: "+__file__+" -s <IP> [OPTION]"
+	print "A tool for semantic analysis of web articles\n"
+	print "-h, --help	 give this help"
+	print "-v, --version    display version number"
+	print "-s, --server     IP where the server is listening"
+	print "-p, --port       port where the server is listening, default 5000"
+	print "\n\n"
 
 if __name__ == '__main__':
-    app.run(debug=True, host='46.4.206.92')
+	main(sys.argv[1:])
