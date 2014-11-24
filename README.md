@@ -1,4 +1,4 @@
-# Sumo 
+# Sumo 0.1
 API for semantic analysis of web articles.
 
 
