@@ -50,7 +50,7 @@ e.g.:
 
 <b>To analyze and store a document</b> and store it on the db:
 <pre>
-curl http://host:5000/sumo -X POST -d "url=\<TARGET_URL\>"
+curl http://host:5000/sumo -X POST -d 'url=\<TARGET_URL\>'
 </pre>
 HTTP Status returned:
 <pre>
