@@ -105,10 +105,12 @@ class Analyzer():
 		## extracting the two Luhn summaries
 		##
 		self.summary_top_n, self.summary_mean_scored = sum_luhn.summarize(sentences,self.STOP_WORDS)		
+		#self.summary_top_n, self.summary_mean_scored = '1','1'
 
 		## extractin intersection summery
 		##
 		self.abs_summary = summary.Summary(txt)
+		#self.abs_summary = '1'
 		return 1
 
 

@@ -27,10 +27,10 @@ def _get_html_content_from_url(URL):
 		print "unzippinig....."
 		buf = StringIO.StringIO(response.read())
 		f = gzip.GzipFile(fileobj=buf)
-		return f.read()
+		return f.read(),response.info().type
 	else:
 		print "the content seems uncompressed"
-		return response.read()
+		return response.read(),response.info().type
 
 
 def extract(URL):
@@ -45,19 +45,22 @@ def extract(URL):
 
 	g = Goose()
 
-	text_html = _get_html_content_from_url(URL)
+	text, text_type= _get_html_content_from_url(URL)
 
+	if text_type != 'text/plain':
 	#article = g.extract(url=URL)
-	article = g.extract(raw_html=text_html)
+		article = g.extract(raw_html=text)
 
-	img = ''
-
-	try:
-		img = article.top_image.src
-	except:
 		img = ''
 
-	return (article.title,article.cleaned_text,img)
+		try:
+			img = article.top_image.src
+		except:
+			img = ''
+		return (article.title,article.cleaned_text,img)
+	else:
+		print "it's a plain/text"
+		return ('plaintext',text,'n/a')
 
 
 def get_simple_html(txt):
