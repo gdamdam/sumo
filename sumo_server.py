@@ -51,7 +51,7 @@ def it_is_url(url):
 	if re.match(regex,url):
 		return True
 	else:
-		return True
+		return False
 
 # static files
 @app.route('/')
