@@ -14,8 +14,6 @@ libxml2-dev
 libxslt-dev
 </pre>
 
-To install MongoDB on Debian see the document 
-<a href="http://docs.mongodb.org/manual/tutorial/install-mongodb-on-debian/" target="_blank">http://docs.mongodb.org/manual/tutorial/install-mongodb-on-debian/</a>
 
 ## Basic Installation
 
