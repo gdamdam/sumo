@@ -9,6 +9,7 @@ Python >=2.7.5
 </pre>
 to build some python requirements you will need also:
 <pre>
+python-dev
 libxml2-dev
 libxslt-dev
 </pre>
