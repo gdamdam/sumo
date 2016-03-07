@@ -14,6 +14,15 @@ libxml2-dev
 libxslt-dev
 </pre>
 
+## Using Docker
+
+We provide a Dockerfile to run a dockerized Sumo server.
+
+<pre>
+docker build -t sumoserver .
+docker run -p 5000:5000 sumoserver
+</pre>
+
 
 ## Basic Installation
 
