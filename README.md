@@ -1,18 +1,19 @@
-# Sumo 0.1 alpha
-API for semantic analysis of web articles.
+# Sumo 0.1 
+APP for semantic analysis of web articles.
+It extracts main text from a web article url, extracting frequency words and entities.
+It run also some automatic summarization algorithms, like Luhn.
+The results are stored in a mongodb allowing the extraction of the cluster of articles about the same topic.
 
 
 ## Main requirements
+
+MongoDB >=2.6.5  Python >=2.7.5
+
+for debian and ubuntu:
 <pre>
-MongoDB >=2.6.5 
-Python >=2.7.5
+apt-get install mongodb python python-dev python-virtualenv libxml2-dev libxslt-dev zlib1g-dev libjpeg-dev gcc
 </pre>
-to build some python requirements you will need also:
-<pre>
-python-dev
-libxml2-dev
-libxslt-dev
-</pre>
+
 
 ## Using Docker
 
@@ -29,6 +30,8 @@ docker run -p 5000:5000 sumoserver
 <pre>
 git clone https://github.com/gdamdam/sumo.git
 cd sumo
+virtualenv ./venv
+source venv/bin/activate
 pip install -r requirements.txt
 python requirements_nltk.py
 </pre>
