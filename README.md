@@ -1,9 +1,8 @@
 # Sumo 0.1 
-APP for semantic analysis of web articles.
-It extracts main text from a web article url, extracting frequency words and entities.
-It run also some automatic summarization algorithms, like Luhn.
-The results are stored in a mongodb allowing the extraction of the cluster of articles about the same topic.
-
+Sumo it's a tool for the semantic analysis of web articles.
+It extracts the content from an article web page and analyzing it an returning:
+frequency words, entity recognition, automatic summarization.
+It returns also the releted articles previously analized, using the term vector distance.
 
 ## Main requirements
 
