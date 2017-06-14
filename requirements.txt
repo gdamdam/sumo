@@ -5,4 +5,4 @@ goose-extractor==1.0.22
 nltk==3.0.0
 numpy==1.9.1
 pymongo==2.7.2
-
+markupsafe
