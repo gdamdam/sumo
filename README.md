@@ -40,6 +40,7 @@ python requirements_nltk.py
 Just lunch the server
 
 <pre>
+sudo service mongodb start
 python ./sumo_server.py -s IP
 </pre>
 
